@@ -13,8 +13,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.EntityFrameworkCore.SqlServer;
 using Microsoft.EntityFrameworkCore;
-using AutoMapper;
-using ApiCliente.AutoMapper;
 
 namespace ApiCliente
 {
@@ -38,7 +36,6 @@ namespace ApiCliente
 
             services.AddDbContext<ClienteContext>(options => options.UseSqlServer(Configuration.GetConnectionString("ClienteConnectionString")));
 
-            services.AddAutoMapper(typeof(Startup));
 
             services.AddControllers();
             services.AddSwaggerGen();

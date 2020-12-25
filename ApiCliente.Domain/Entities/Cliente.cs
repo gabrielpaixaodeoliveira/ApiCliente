@@ -1,5 +1,7 @@
 ﻿using ApiCliente.Domain.DTO;
 using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace ApiCliente.Domain.Entities
 {
@@ -24,11 +26,14 @@ namespace ApiCliente.Domain.Entities
                 IdCliente = id;
         }
 
+        [Key]
         public int IdCliente { get; set; }
         public string Nome { get; set; }
         public string Cpf { get; set; }
 
         public DateTime DtNascimento { get; set; }
+
+        public virtual List<Endereco> Endereco { get; set; }
 
 
     }

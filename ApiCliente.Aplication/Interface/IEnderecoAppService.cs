@@ -6,10 +6,10 @@ using System.Text;
 
 namespace ApiCliente.Aplication.Interface
 {
-    public interface IClienteAppService
+    public interface IEnderecoAppService
     {
-        IEnumerable<ClienteSaidaDTO> GetAll();
-        void Add(ClienteEntradaDTO cli);
-        void Update(ClienteEntradaDTO cli, int IdCliente);
+        IEnumerable<Endereco> GetAll();
+        void Add(Endereco cli);
+        void Update(Endereco cli, int IdCliente);
     }
 }

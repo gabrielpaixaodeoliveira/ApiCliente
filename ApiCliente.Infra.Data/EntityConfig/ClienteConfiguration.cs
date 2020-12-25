@@ -10,7 +10,8 @@ namespace ApiCliente.Infra.Data.EntityConfig
         {
             builder.ToTable("tb_cliente");
             builder.HasKey(p => p.IdCliente);
-            
+            builder.HasMany(p => p.Endereco).WithOne(x => x.Cliente).HasForeignKey(x => x.IdCliente);
+
 
         }
     }

@@ -27,9 +27,9 @@ namespace ApiCliente.Aplication
         }
 
 
-        public void Update(ClienteEntradaDTO cli)
+        public void Update(ClienteEntradaDTO cli, int IdCliente)
         {
-            _clienteService.Add(new Cliente(cli));
+            _clienteService.Update(new Cliente(cli, IdCliente));
         }
     }
 }

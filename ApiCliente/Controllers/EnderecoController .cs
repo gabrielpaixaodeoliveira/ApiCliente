@@ -7,18 +7,19 @@ using ApiCliente.Aplication.Interface;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System.Net;
+using ApiCliente.Domain.Entities;
 
 namespace ApiCliente.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class ClienteController : ControllerBase
+    public class EnderecoController : ControllerBase
     {
-        private readonly IClienteAppService _clienteService;
+        private readonly IAppServiceBase<Endereco> _appServiceBase;
 
-        public ClienteController(IClienteAppService clienteService)
+        public EnderecoController(IAppServiceBase<Endereco> appServiceBase)
         {
-            _clienteService = clienteService;
+            _appServiceBase = appServiceBase;
         }
 
         [HttpGet]
@@ -26,7 +27,7 @@ namespace ApiCliente.Controllers
         {
             try
             {
-                return Ok(_clienteService.GetAll());
+                return Ok(_appServiceBase.GetAll());
             }
             catch (System.Exception ex)
             {
@@ -35,14 +36,14 @@ namespace ApiCliente.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> Post(ClienteEntradaDTO cliente)
+        public async Task<ActionResult> Post(Endereco endereco)
         {
             try
             {
                 if (ModelState.IsValid)
                 {
-                    _clienteService.Add(cliente);
-                    return Created($"/cliente/{cliente}", cliente);
+                    _appServiceBase.Add(endereco);
+                    return Created($"/endereco/{endereco}", endereco);
                 }
                 else
                 {
@@ -58,18 +59,18 @@ namespace ApiCliente.Controllers
 
 
         /// <summary>
-        /// Alterar dados do cliente.
+        /// Alterar dados do endereco.
         /// </summary>
-        /// <param name="IdCliente"></param>  
+        /// <param name="IdEndereco"></param>  
         /// <param name="model"></param>  
-        [HttpPut("{IdCliente}")]
-        public async Task<ActionResult> Put(int IdCliente, ClienteEntradaDTO cliente)
+        [HttpPut("{IdEndereco}")]
+        public async Task<ActionResult> Put(int IdEndereco, Endereco endereco)
         {
             try
             {
                 if (ModelState.IsValid)
                 {
-                    _clienteService.Update(cliente, IdCliente);
+                    _appServiceBase.Update(endereco);
                     return NoContent();
                 }
                 else

@@ -16,6 +16,7 @@ namespace ApiCliente.Domain.DTO
 
         [JsonIgnore]
         public DateTime DtNascimento { get; set; }
+        
 
         private int _idade = 0;
 
