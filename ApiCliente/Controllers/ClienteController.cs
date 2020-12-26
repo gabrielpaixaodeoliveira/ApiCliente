@@ -26,7 +26,11 @@ namespace ApiCliente.Controllers
         {
             try
             {
-                return Ok(_clienteService.GetAllComInclude());
+                var retorno = _clienteService.GetAllComInclude();
+                if (retorno == null)
+                    return NotFound();
+                else
+                    return Ok(retorno);
             }
             catch (System.Exception ex)
             {
@@ -39,7 +43,11 @@ namespace ApiCliente.Controllers
         {
             try
             {
-                return Ok(_clienteService.GetByIdComInclude(IdCliente));
+                var retorno = _clienteService.GetByIdComInclude(IdCliente);
+                if (retorno == null)
+                    return NotFound();
+                else
+                    return Ok(retorno);                
             }
             catch (System.Exception ex)
             {

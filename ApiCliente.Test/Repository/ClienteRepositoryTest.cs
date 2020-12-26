@@ -24,17 +24,29 @@ namespace ApiCliente.Test.Repository
             mockRepository = new Mock<IClienteRepository>();
             mockRepository.Setup(x => x.GetById(It.IsAny<int>()))
                       .Returns((int i) => lista.Single(p => p.IdCliente == i));
+
+            mockRepository.Setup(x => x.GetAll())
+                      .Returns(lista);
         }
 
 
         [Theory]
         [InlineData(1)]
         [InlineData(2)]
-        public void Obter_Cliente_Should_Work(int id)
+        public void Obter_Cliente_Por_Id_Deve_Funcionar(int id)
         {
             var clienteExiste = mockRepository.Object.GetById(id);
             Assert.Equal(clienteExiste.IdCliente, id);
         }
+
+
+        [Fact]
+        public void Obter_Cliente_Deve_Funcionar()
+        {
+            var clienteExiste = mockRepository.Object.GetAll();
+            Assert.True(clienteExiste.Count() > 0);
+        }
+
 
     }
 }

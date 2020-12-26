@@ -19,11 +19,23 @@ namespace ApiCliente.Aplication
 
         public IEnumerable<EnderecoSaidaDTO> GetAll()
         {
-            return _enderecoService.GetAll().Select(end => (EnderecoSaidaDTO)end).ToList();
+
+            var enderecos = _enderecoService.GetAll();
+
+            if (enderecos == null)
+                return null;
+            else
+                return enderecos.Select(end => (EnderecoSaidaDTO)end).ToList();
         }
         public EnderecoSaidaDTO GetById(int IdEndereco)
         {
-            return (EnderecoSaidaDTO)_enderecoService.GetById(IdEndereco);
+
+            var endereco = _enderecoService.GetById(IdEndereco);
+
+            if (endereco == null)
+                return null;
+            else
+                return (EnderecoSaidaDTO)endereco;
         }
 
         public EnderecoSaidaDTO Add(EnderecoEntradaDTO end)

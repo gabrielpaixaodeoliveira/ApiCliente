@@ -19,11 +19,23 @@ namespace ApiCliente.Aplication
 
         public IEnumerable<ClienteSaidaDTO> GetAllComInclude()
         {
-            return _clienteService.GetAllComInclude().Select(cli => (ClienteSaidaDTO)cli).ToList();
+            var clientes = _clienteService.GetAllComInclude() ;
+
+            if (clientes == null)
+                return null;
+            else
+                return clientes.Select(cli => (ClienteSaidaDTO)cli).ToList();
+
+
         }
         public ClienteSaidaDTO GetByIdComInclude(int IdCliente)
         {             
-            return (ClienteSaidaDTO)_clienteService.GetByIdComInclude(IdCliente);
+           var cliente = _clienteService.GetByIdComInclude(IdCliente);
+
+            if (cliente == null)
+                return null;
+            else
+                return (ClienteSaidaDTO)cliente;
         }
 
         public ClienteSaidaDTO Add(ClienteEntradaDTO cli)

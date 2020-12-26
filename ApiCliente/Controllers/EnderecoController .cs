@@ -27,7 +27,11 @@ namespace ApiCliente.Controllers
         {
             try
             {
-                return Ok(_enderecoService.GetAll());
+                var retorno = _enderecoService.GetAll();
+                if (retorno != null)
+                    return Ok(retorno);
+                else
+                    return NotFound();
             }
             catch (System.Exception ex)
             {
@@ -40,7 +44,11 @@ namespace ApiCliente.Controllers
         {
             try
             {
-                return Ok(_enderecoService.GetById(IdEndereco));
+                var retorno = _enderecoService.GetById(IdEndereco);
+                if (retorno != null)
+                    return Ok(retorno);
+                else
+                    return NotFound();
             }
             catch (System.Exception ex)
             {
