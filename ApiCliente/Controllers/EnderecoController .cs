@@ -15,11 +15,11 @@ namespace ApiCliente.Controllers
     [Route("[controller]")]
     public class EnderecoController : ControllerBase
     {
-        private readonly IAppServiceBase<Endereco> _appServiceBase;
+        private readonly IEnderecoAppService _enderecoService;
 
-        public EnderecoController(IAppServiceBase<Endereco> appServiceBase)
+        public EnderecoController(IEnderecoAppService enderecoService)
         {
-            _appServiceBase = appServiceBase;
+            _enderecoService = enderecoService;
         }
 
         [HttpGet]
@@ -27,7 +27,20 @@ namespace ApiCliente.Controllers
         {
             try
             {
-                return Ok(_appServiceBase.GetAll());
+                return Ok(_enderecoService.GetAll());
+            }
+            catch (System.Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpGet("{IdEndereco}")]
+        public async Task<ActionResult> GetById(int IdEndereco)
+        {
+            try
+            {
+                return Ok(_enderecoService.GetById(IdEndereco));
             }
             catch (System.Exception ex)
             {
@@ -36,14 +49,14 @@ namespace ApiCliente.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> Post(Endereco endereco)
+        public async Task<ActionResult> Post(EnderecoEntradaDTO endereco)
         {
             try
             {
                 if (ModelState.IsValid)
                 {
-                    _appServiceBase.Add(endereco);
-                    return Created($"/endereco/{endereco}", endereco);
+                   var retorno = _enderecoService.Add(endereco);
+                    return Created($"/endereco/{retorno}", retorno);
                 }
                 else
                 {
@@ -64,13 +77,13 @@ namespace ApiCliente.Controllers
         /// <param name="IdEndereco"></param>  
         /// <param name="model"></param>  
         [HttpPut("{IdEndereco}")]
-        public async Task<ActionResult> Put(int IdEndereco, Endereco endereco)
+        public async Task<ActionResult> Put(int IdEndereco, EnderecoEntradaDTO endereco)
         {
             try
             {
                 if (ModelState.IsValid)
                 {
-                    _appServiceBase.Update(endereco);
+                    _enderecoService.Update(endereco, IdEndereco);
                     return NoContent();
                 }
                 else
@@ -82,7 +95,34 @@ namespace ApiCliente.Controllers
             }
             catch (System.Exception ex)
             {
-                return BadRequest(ModelState);
+                return BadRequest(ex.Message);
+            }
+        }
+        /// <summary>
+        /// Remove um endereco.
+        /// </summary>
+        /// <param name="IdEndereco"></param>  
+        /// <param name="model"></param>  
+        [HttpDelete("{IdEndereco}")]
+        public async Task<ActionResult> Delete(int IdEndereco)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    _enderecoService.Remove(IdEndereco);
+                    return NoContent();
+                }
+                else
+                {
+                    return BadRequest(ModelState);
+                }
+
+
+            }
+            catch (System.Exception ex)
+            {
+                return BadRequest(ex.Message);
             }
         }
 

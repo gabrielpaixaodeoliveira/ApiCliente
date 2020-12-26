@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Text.RegularExpressions;
 
 namespace ApiCliente.Domain.Entities
 {
@@ -13,6 +14,7 @@ namespace ApiCliente.Domain.Entities
 
     public class Cliente
     {
+        Regex reg = new Regex(@"[^0-9]");
         public Cliente()
         {
         }
@@ -20,7 +22,7 @@ namespace ApiCliente.Domain.Entities
         public Cliente(ClienteEntradaDTO clienteEntrada, int id = 0)
         {
             Nome = clienteEntrada.Nome;
-            Cpf = clienteEntrada.Cpf;
+            Cpf = reg.Replace(clienteEntrada.Cpf, string.Empty); 
             DtNascimento = clienteEntrada.DtNascimento;
             if (id > 0)
                 IdCliente = id;

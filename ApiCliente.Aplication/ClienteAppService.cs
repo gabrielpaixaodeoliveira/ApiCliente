@@ -7,29 +7,40 @@ using System.Linq;
 
 namespace ApiCliente.Aplication
 {
-    public class ClienteAppService : IClienteAppService
+    public class ClienteAppService : AppServiceBase<Cliente>, IClienteAppService     
     {
         private readonly IClienteService _clienteService;
 
         public ClienteAppService(IClienteService clienteService)
+            : base(clienteService)
         {
             _clienteService = clienteService;
         }
 
-        public IEnumerable<ClienteSaidaDTO> GetAll()
+        public IEnumerable<ClienteSaidaDTO> GetAllComInclude()
         {
-            List<ClienteSaidaDTO> lista = _clienteService.GetAll().Select(cli => (ClienteSaidaDTO)cli).ToList();;
-            return lista;
+            return _clienteService.GetAllComInclude().Select(cli => (ClienteSaidaDTO)cli).ToList();
         }
-        public void Add(ClienteEntradaDTO cli)
+        public ClienteSaidaDTO GetByIdComInclude(int IdCliente)
+        {             
+            return (ClienteSaidaDTO)_clienteService.GetByIdComInclude(IdCliente);
+        }
+
+        public ClienteSaidaDTO Add(ClienteEntradaDTO cli)
         {
-            _clienteService.Add(new Cliente(cli));            
+            var cliente = new Cliente(cli);
+            _clienteService.Add(cliente);
+            return (ClienteSaidaDTO)cliente;
         }
 
 
         public void Update(ClienteEntradaDTO cli, int IdCliente)
         {
             _clienteService.Update(new Cliente(cli, IdCliente));
+        }
+        public void Remove(int IdCliente)
+        {
+            _clienteService.Remove(IdCliente);
         }
     }
 }

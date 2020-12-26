@@ -7,29 +7,40 @@ using System.Linq;
 
 namespace ApiCliente.Aplication
 {
-    public class EnderecoAppService : IEnderecoAppService
+    public class EnderecoAppService : AppServiceBase<Endereco>, IEnderecoAppService
     {
-        private readonly IServiceBase<Endereco> _enderecoService;
+        private readonly IEnderecoService _enderecoService;
 
-        public EnderecoAppService(IServiceBase<Endereco> enderecoService)
+        public EnderecoAppService(IEnderecoService enderecoService)
+            : base(enderecoService)
         {
             _enderecoService = enderecoService;
         }
 
-        public IEnumerable<Endereco> GetAll()
+        public IEnumerable<EnderecoSaidaDTO> GetAll()
         {
-            return _enderecoService.GetAll();
+            return _enderecoService.GetAll().Select(end => (EnderecoSaidaDTO)end).ToList();
         }
-        public void Add(Endereco endereco)
+        public EnderecoSaidaDTO GetById(int IdEndereco)
         {
-            _enderecoService.Add(endereco);            
+            return (EnderecoSaidaDTO)_enderecoService.GetById(IdEndereco);
+        }
+
+        public EnderecoSaidaDTO Add(EnderecoEntradaDTO end)
+        {
+            var endereco = new Endereco(end);
+            _enderecoService.Add(endereco);
+            return (EnderecoSaidaDTO)endereco;
         }
 
 
-        public void Update(Endereco endereco, int IdEndereco)
+        public void Update(EnderecoEntradaDTO end, int IdEndereco)
         {
-            endereco.IdEndereco = IdEndereco;
-            _enderecoService.Update(endereco);
+            _enderecoService.Update(new Endereco(end, IdEndereco));
+        }
+        public void Remove(int IdEndereco)
+        {
+            _enderecoService.Remove(IdEndereco);
         }
     }
 }

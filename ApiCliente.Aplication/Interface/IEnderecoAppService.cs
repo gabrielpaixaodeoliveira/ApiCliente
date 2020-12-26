@@ -8,8 +8,10 @@ namespace ApiCliente.Aplication.Interface
 {
     public interface IEnderecoAppService
     {
-        IEnumerable<Endereco> GetAll();
-        void Add(Endereco cli);
-        void Update(Endereco cli, int IdCliente);
+        IEnumerable<EnderecoSaidaDTO> GetAll();
+        EnderecoSaidaDTO GetById(int IdEndereco);
+        EnderecoSaidaDTO Add(EnderecoEntradaDTO endereco);
+        void Update(EnderecoEntradaDTO endereco, int IdEndereco);
+        void Remove(int IdEndereco);
     }
 }

@@ -26,13 +26,27 @@ namespace ApiCliente.Controllers
         {
             try
             {
-                return Ok(_clienteService.GetAll());
+                return Ok(_clienteService.GetAllComInclude());
             }
             catch (System.Exception ex)
             {
                 return BadRequest(ex.Message);
             }
         }
+
+        [HttpGet("IdCliente")]
+        public async Task<ActionResult> Get(int IdCliente)
+        {
+            try
+            {
+                return Ok(_clienteService.GetByIdComInclude(IdCliente));
+            }
+            catch (System.Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
 
         [HttpPost]
         public async Task<ActionResult> Post(ClienteEntradaDTO cliente)
@@ -41,8 +55,8 @@ namespace ApiCliente.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    _clienteService.Add(cliente);
-                    return Created($"/cliente/{cliente}", cliente);
+                   var retorno = _clienteService.Add(cliente);
+                    return Created($"/cliente/{retorno.IdCliente}", retorno);
                 }
                 else
                 {
@@ -81,7 +95,35 @@ namespace ApiCliente.Controllers
             }
             catch (System.Exception ex)
             {
-                return BadRequest(ModelState);
+                return BadRequest(ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// Exclui um cliente.
+        /// </summary>
+        /// <param name="IdCliente"></param>  
+        /// <param name="model"></param>  
+        [HttpDelete("{IdCliente}")]
+        public async Task<ActionResult> Delete(int IdCliente)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    _clienteService.Remove(IdCliente);
+                    return NoContent();
+                }
+                else
+                {
+                    return BadRequest(ModelState);
+                }
+
+
+            }
+            catch (System.Exception ex)
+            {
+                return BadRequest(ex.Message);
             }
         }
 

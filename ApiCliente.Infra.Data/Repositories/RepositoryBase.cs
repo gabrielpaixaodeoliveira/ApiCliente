@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 
 namespace ApiCliente.Infra.Data.Repositories
 {
@@ -27,9 +28,14 @@ namespace ApiCliente.Infra.Data.Repositories
             return Db.Set<TEntity>().Find(id);
         }
 
+        public  IEnumerable<TEntity> GetBy(Expression<Func<TEntity, bool>> predicate)
+        {
+                return Db.Set<TEntity>().Where(predicate);
+        }
+
         public IEnumerable<TEntity> GetAll()
         {
-            return Db.Set<TEntity>().ToList();
+            return Db.Set<TEntity>().AsNoTracking().ToList();
         }
 
         public void Update(TEntity obj)

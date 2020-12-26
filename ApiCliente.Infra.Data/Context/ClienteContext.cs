@@ -1,4 +1,5 @@
-﻿using ApiCliente.Infra.Data.EntityConfig;
+﻿using ApiCliente.Domain.Entities;
+using ApiCliente.Infra.Data.EntityConfig;
 using Microsoft.EntityFrameworkCore;
 
 namespace ApiCliente.Infra.Data.Context
@@ -11,6 +12,10 @@ namespace ApiCliente.Infra.Data.Context
         }
 
         #region DbSets
+
+
+        public DbSet<Cliente> Clientes{ get; set; }
+        public DbSet<Endereco> Enderecos { get; set; }
         #endregion
 
         #region Configurações

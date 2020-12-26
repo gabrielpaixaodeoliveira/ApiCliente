@@ -3,10 +3,8 @@ using ApiCliente.Domain.Entities;
 
 namespace ApiCliente.Domain.Interfaces.Services
 {
-    public interface IClienteService : IServiceBase<Cliente>
+    public interface IEnderecoService : IServiceBase<Endereco>
     {
         void Remove(int IdCliente);
-        IEnumerable<Cliente> GetAllComInclude();
-        Cliente GetByIdComInclude(int IdCliente);
     }
 }

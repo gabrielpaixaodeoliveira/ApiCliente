@@ -17,11 +17,13 @@ namespace ApiCliente.Infra.CrossCutting
         {
             services.AddScoped(typeof(IAppServiceBase<>), typeof(AppServiceBase<>));
             services.AddScoped<IClienteAppService, ClienteAppService>();
+            services.AddScoped<IEnderecoAppService, EnderecoAppService>();
         }
         public void InjecaoDomain(IServiceCollection services)
         {
             services.AddScoped(typeof(IServiceBase<>), typeof(ServiceBase<>));
             services.AddScoped<IClienteService, ClienteService>();
+            services.AddScoped<IEnderecoService, EnderecoService>();
         }
         public void InjecaoRepository(IServiceCollection services)
         {

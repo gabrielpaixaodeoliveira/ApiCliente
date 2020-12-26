@@ -1,17 +1,10 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using ApiCliente.Infra.CrossCutting;
 using ApiCliente.Infra.Data.Context;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.EntityFrameworkCore.SqlServer;
 using Microsoft.EntityFrameworkCore;
 
 namespace ApiCliente
@@ -36,8 +29,8 @@ namespace ApiCliente
 
             services.AddDbContext<ClienteContext>(options => options.UseSqlServer(Configuration.GetConnectionString("ClienteConnectionString")));
 
-
             services.AddControllers();
+
             services.AddSwaggerGen();
         }
 
@@ -48,7 +41,6 @@ namespace ApiCliente
             {
                 app.UseDeveloperExceptionPage();
             }
-
             app.UseHttpsRedirection();
 
             app.UseRouting();
@@ -59,11 +51,9 @@ namespace ApiCliente
             {
                 endpoints.MapControllers();
             });
-            // Enable middleware to serve generated Swagger as a JSON endpoint.
+
             app.UseSwagger();
 
-            // Enable middleware to serve swagger-ui (HTML, JS, CSS, etc.),
-            // specifying the Swagger JSON endpoint.
             app.UseSwaggerUI(c =>
             {
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");

@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq.Expressions;
 
 namespace ApiCliente.Domain.Interfaces.Repositories
 {
@@ -10,5 +12,6 @@ namespace ApiCliente.Domain.Interfaces.Repositories
         void Update(TEntity obj);
         void Remove(TEntity obj);
         void Dispose();
+        IEnumerable<TEntity> GetBy(Expression<Func<TEntity, bool>> predicate);
     }
 }
