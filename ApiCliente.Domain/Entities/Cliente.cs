@@ -28,14 +28,21 @@ namespace ApiCliente.Domain.Entities
                 IdCliente = id;
         }
 
+        public void AtualizaCliente(Cliente clienteAtualizado)
+        {
+            Cpf = clienteAtualizado.Cpf;
+            DtNascimento = clienteAtualizado.DtNascimento;
+            Nome = clienteAtualizado.Nome;
+        }
+
         [Key]
-        public int IdCliente { get; set; }
-        public string Nome { get; set; }
-        public string Cpf { get; set; }
+        public int IdCliente { get; private set; }
+        public string Nome { get; private set; }
+        public string Cpf { get; private set; }
 
-        public DateTime DtNascimento { get; set; }
+        public DateTime DtNascimento { get; private set; }
 
-        public virtual List<Endereco> Endereco { get; set; }
+        public virtual List<Endereco> Endereco { get; private set; }
 
 
     }

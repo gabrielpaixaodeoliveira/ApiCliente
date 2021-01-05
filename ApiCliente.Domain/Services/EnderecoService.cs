@@ -43,10 +43,7 @@ namespace ApiCliente.Domain.Services
                 throw new ArgumentException("Endereco não encontrado");
             else
             {
-                enderecoBase.Cidade = endereco.Cidade;
-                enderecoBase.Bairro = endereco.Bairro;
-                enderecoBase.Estado = endereco.Estado;
-                enderecoBase.Logradouro = endereco.Logradouro;
+                enderecoBase.AtualizaEndereco(endereco);
                 _enderecoRepository.Update(enderecoBase);
             }
         }

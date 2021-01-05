@@ -34,9 +34,7 @@ namespace ApiCliente.Domain.Services
                 throw new ArgumentException("Cliente não encontrado");
             else
             {
-                clienteBase.Cpf = cliente.Cpf;
-                clienteBase.DtNascimento = cliente.DtNascimento;
-                clienteBase.Nome = cliente.Nome;
+                clienteBase.AtualizaCliente(cliente);
                 _clienteRepository.Update(clienteBase);
             }
         }
