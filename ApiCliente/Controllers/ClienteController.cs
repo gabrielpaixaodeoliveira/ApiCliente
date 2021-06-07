@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using ApiCliente.Domain.DTO;
 using ApiCliente.Aplication.Interface;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
-using System.Net;
 
 namespace ApiCliente.Controllers
 {
@@ -22,19 +17,19 @@ namespace ApiCliente.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult> Get()
+        public async Task<JsonResult> Get()
         {
             try
             {
                 var retorno = _clienteService.GetAllComInclude();
                 if (retorno == null)
-                    return NotFound();
+                    return new JsonResult(NotFound());
                 else
-                    return Ok(retorno);
+                    return new JsonResult(Ok(retorno));
             }
             catch (System.Exception ex)
             {
-                return BadRequest(ex.Message);
+                return new JsonResult(BadRequest(ex.Message));
             }
         }
 
